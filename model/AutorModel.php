@@ -1,19 +1,19 @@
 <?php
 
 
-class LibroModel implements JsonSerializable
+class AutorModel implements JsonSerializable
 {
     private $codigo;
     private $nombre;
-    private $editorial;
-    private $ejemplares;
+    private $apellidos;
+    private $nacionalidad;
 
-    public function __construct($cod,$nom,$edi,$eje)
+    public function __construct($cod,$nom,$ape,$nac)
     {
         $this->codigo=$cod;
         $this->nombre=$nom;
-        $this->editorial=$edi;
-        $this->ejemplares=$eje;
+        $this->apellidos=$ape;
+        $this->nacionalidad=$nac;
     }
 
     /**
@@ -31,16 +31,15 @@ class LibroModel implements JsonSerializable
         return array(
             'codigo' => $this->codigo,
             'nombre' => $this->nombre,
-            'editorial' => $this->editorial,
-            'ejemplares' => $this->ejemplares
+            'apellidos' => $this->apellidos,
+            'nacionalidad' => $this->nacionalidad
         );
     }
 
     //para serializacion y deserializacion
     public function __sleep(){
-        return array('codigo','nombre' , 'editorial' , 'ejemplares');
+        return array('codigo','nombre' , 'apellidos' , 'nacionalidad');
     }
-
 
     /**
      * @return mixed
@@ -51,20 +50,23 @@ class LibroModel implements JsonSerializable
     }
 
     /**
-     * @param mixed $titulo
+     * @param mixed $codigo
      */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNombre()
     {
         return $this->nombre;
     }
 
     /**
-     * @param mixed $titulo
+     * @param mixed $nombre
      */
     public function setNombre($nombre)
     {
@@ -74,33 +76,32 @@ class LibroModel implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getEditorial()
+    public function getApellidos()
     {
-        return $this->editorial;
+        return $this->apellidos;
     }
 
     /**
-     * @param mixed $codigo
+     * @param mixed $apellidos
      */
-    public function setEditorial($editorial)
+    public function setApellidos($apellidos)
     {
-        $this->editorial = $editorial;
+        $this->apellidos = $apellidos;
     }
 
     /**
      * @return mixed
      */
-    public function getEjemplares()
+    public function getNacionalidad()
     {
-        return $this->ejemplares;
+        return $this->nacionalidad;
     }
 
     /**
-     * @param mixed $numpag
+     * @param mixed $nacionalidad
      */
-    public function setEjemplares($ejemplares)
+    public function setNacionalidad($nacionalidad)
     {
-        $this->ejemplares = $ejemplares;
+        $this->nacionalidad = $nacionalidad;
     }
-
 }

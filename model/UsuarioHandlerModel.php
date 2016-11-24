@@ -1,14 +1,14 @@
 <?php
 
-require_once "ConsLibrosModel.php";
+require_once "ConsUsuariosModel.php";
 
 
-class LibroHandlerModel
+class UsuarioHandlerModel
 {
 
-    public static function getLibro($id)
+    public static function getUsuario($id)
     {
-        $listaLibros = null;
+        $listaUsuarios = null;
 
         $db = DatabaseModel::getInstance();
         $db_connection = $db->getConnection();
@@ -28,8 +28,8 @@ class LibroHandlerModel
         if ($valid === true || $id == null) {
             $query = "SELECT " . \ConstantesDB\ConsLibrosModel::COD . ","
                 . \ConstantesDB\ConsLibrosModel::NOM . ","
-                . \ConstantesDB\ConsLibrosModel::EDI . ","
-                . \ConstantesDB\ConsLibrosModel::EJE . " FROM " . \ConstantesDB\ConsLibrosModel::TABLE_NAME;
+                . \ConstantesDB\ConsLibrosModel::APE . ","
+                . \ConstantesDB\ConsLibrosModel::TEL . " FROM " . \ConstantesDB\ConsLibrosModel::TABLE_NAME;
 
 
             if ($id != null) {
@@ -49,18 +49,18 @@ class LibroHandlerModel
             }
 
             $prep_query->execute();
-            $listaLibros = array();
+            $listaUsuarios = array();
 
             //IMPORTANT: IN OUR SERVER, I COULD NOT USE EITHER GET_RESULT OR FETCH_OBJECT,
             // PHP VERSION WAS OK (5.4), AND MYSQLI INSTALLED.
             // PROBABLY THE PROBLEM IS THAT MYSQLND DRIVER IS NEEDED AND WAS NOT AVAILABLE IN THE SERVER:
             // http://stackoverflow.com/questions/10466530/mysqli-prepared-statement-unable-to-get-result
 
-            $prep_query->bind_result($cod, $nom, $edi, $eje);
+            $prep_query->bind_result($cod, $nom, $ape, $tel);
             while ($prep_query->fetch()) {
                 $nom = utf8_encode($nom);
-                $libro = new LibroModel($cod,$nom, $edi, $eje);
-                $listaLibros[] = $libro;
+                $usuario = new UsuarioModel($cod,$nom, $ape, $tel);
+                $listaUsuarios[] = $usuario;
             }
 
 //            $result = $prep_query->get_result();
@@ -71,7 +71,7 @@ class LibroHandlerModel
         }
         $db_connection->close();
 
-        return $listaLibros;
+        return $listaUsuarios;
     }
 
     //returns true if $id is a valid id for a book

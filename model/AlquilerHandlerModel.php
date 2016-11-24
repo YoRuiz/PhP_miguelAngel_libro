@@ -1,14 +1,14 @@
 <?php
 
-require_once "ConsLibrosModel.php";
+require_once "ConsAlquilerModel.php";
 
 
-class LibroHandlerModel
+class AlquilerHandlerModel
 {
 
-    public static function getLibro($id)
+    public static function getAlquiler($id)
     {
-        $listaLibros = null;
+        $listaAlquiler = null;
 
         $db = DatabaseModel::getInstance();
         $db_connection = $db->getConnection();
@@ -27,9 +27,10 @@ class LibroHandlerModel
         //If the $id is valid or the client asks for the collection ($id is null)
         if ($valid === true || $id == null) {
             $query = "SELECT " . \ConstantesDB\ConsLibrosModel::COD . ","
-                . \ConstantesDB\ConsLibrosModel::NOM . ","
-                . \ConstantesDB\ConsLibrosModel::EDI . ","
-                . \ConstantesDB\ConsLibrosModel::EJE . " FROM " . \ConstantesDB\ConsLibrosModel::TABLE_NAME;
+                . \ConstantesDB\ConsLibrosModel::USU . ","
+                . \ConstantesDB\ConsLibrosModel::LIB . ","
+                . \ConstantesDB\ConsLibrosModel::FEC1 . ","
+                . \ConstantesDB\ConsLibrosModel::FEC2 . " FROM " . \ConstantesDB\ConsLibrosModel::TABLE_NAME;
 
 
             if ($id != null) {
@@ -49,18 +50,18 @@ class LibroHandlerModel
             }
 
             $prep_query->execute();
-            $listaLibros = array();
+            $listaAlquiler = array();
 
             //IMPORTANT: IN OUR SERVER, I COULD NOT USE EITHER GET_RESULT OR FETCH_OBJECT,
             // PHP VERSION WAS OK (5.4), AND MYSQLI INSTALLED.
             // PROBABLY THE PROBLEM IS THAT MYSQLND DRIVER IS NEEDED AND WAS NOT AVAILABLE IN THE SERVER:
             // http://stackoverflow.com/questions/10466530/mysqli-prepared-statement-unable-to-get-result
 
-            $prep_query->bind_result($cod, $nom, $edi, $eje);
+            $prep_query->bind_result($cod,$usu, $lib, $fec1,$fec2);
             while ($prep_query->fetch()) {
-                $nom = utf8_encode($nom);
-                $libro = new LibroModel($cod,$nom, $edi, $eje);
-                $listaLibros[] = $libro;
+                $usu = utf8_encode($usu);
+                $alquiler = new AlquilerModel($cod,$usu, $lib, $fec1,$fec2);
+                $listaAlquiler[] = $alquiler;
             }
 
 //            $result = $prep_query->get_result();
@@ -71,7 +72,7 @@ class LibroHandlerModel
         }
         $db_connection->close();
 
-        return $listaLibros;
+        return $listaAlquiler;
     }
 
     //returns true if $id is a valid id for a book

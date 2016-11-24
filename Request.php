@@ -7,8 +7,6 @@ class Request
     private $query_string;
     private $verb;
     private $body_parameters;
-    //in $format we store the format of the content received, but we do not use this variable
-    private $format;
     //in $accept we store the format of the content that the server will send
     private $accept;
 
@@ -18,7 +16,6 @@ class Request
         $this->url_elements = $url_elements;
         $this->query_string = $query_string;
         $this->parseBody($body, $content_type);
-
         switch ($accept) {
             case 'application/json':
             case '*/*':
@@ -33,8 +30,6 @@ class Request
                 $this->accept = 'unsupported';
                 break;
         }
-
-
         return true;
     }
 
@@ -52,7 +47,6 @@ class Request
                         $parameters[$param_name] = $param_value;
                     }
                 }*/
-
                 break;
             case "application/x-www-form-urlencoded":
                 $this->format = "html";
@@ -60,16 +54,13 @@ class Request
                 /*parse_str($body, $postvars);
                 foreach ($postvars as $field => $value) {
                     $parameters[$field] = $value;
-
                 }*/
-
                 break;
             default:
                 // we could parse other supported formats here
                 break;
         }
-        $this->body_parameters = $parameters;
-
+        $this->body_parameters= $parameters;
     }
 
     /**
@@ -134,22 +125,6 @@ class Request
     public function setBodyParameters($body_parameters)
     {
         $this->body_parameters = $body_parameters;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFormat()
-    {
-        return $this->format;
-    }
-
-    /**
-     * @param mixed $format
-     */
-    public function setFormat($format)
-    {
-        $this->format = $format;
     }
 
     /**
