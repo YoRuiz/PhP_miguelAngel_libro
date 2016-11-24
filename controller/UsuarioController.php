@@ -14,12 +14,14 @@ class UsuarioController extends Controller
         $code = null;
 
         //if the URI refers to a libro entity, instead of the libro collection
+        //estos indices cambian porque en mi carpeta del servidor tengo esto metido dentro de 2 subcarpetas,
+        // por lo que el $url_elements pilla dos pasos mas en el indice (cambia de 2 a 4)
         if (isset($request->getUrlElements()[4])) {
             $id = $request->getUrlElements()[4];
         }
 
 
-        $listaUsuarios = UsuarioHandlerModel::getLibro($id);
+        $listaUsuarios = UsuarioHandlerModel::getUsuario($id);
 
         if ($listaUsuarios != null) {
             $code = '200';

@@ -19,7 +19,7 @@ class AlquilerController extends Controller
         }
 
 
-        $listaAlquileres = AlquilerHandlerModel::getLibro($id);
+        $listaAlquileres = AlquilerHandlerModel::getAlquiler($id);
 
         if ($listaAlquileres != null) {
             $code = '200';

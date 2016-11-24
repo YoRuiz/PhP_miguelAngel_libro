@@ -19,7 +19,7 @@ class AutorController extends Controller
         }
 
 
-        $listaAutores = AutorHandlerModel::getLibro($id);
+        $listaAutores = AutorHandlerModel::getAutor($id);
 
         if ($listaAutores != null) {
             $code = '200';
