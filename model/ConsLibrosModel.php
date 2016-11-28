@@ -6,9 +6,9 @@ namespace ConstantesDB;
 //Class with constants for libros table.
 class ConsLibrosModel
 {
-    const TABLE_NAME = "Libro";
+    const TABLE_NAME = "libro";
     const COD = "ID";
-    const NOM = "nombre";
+    const NOM = "NOMBRE";
     const EDI = "editorial";
-    const EJE = "ejemplares";
+    const EJE = "EJEMPLARES";
 }
